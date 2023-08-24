@@ -1,5 +1,6 @@
-import { Field, reduxForm, InjectedFormProps } from "redux-form";
+import { Field, reduxForm, InjectedFormProps, isSubmitting } from "redux-form";
 import { User } from "@/types";
+import { Loader } from "../Loader";
 
 interface UserFormProps {
   initialValues?: User;
@@ -83,13 +84,19 @@ const EditUserForm: React.FC<
           <option value="Female">Female</option>
         </Field>
       </div>
-      <button
-        type="submit"
-        disabled={submitting}
-        className="bg-blue-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline disabled:bg-blue-300"
-      >
-        Submit
-      </button>
+      {submitting ? (
+        <Loader />
+      ) : (
+        <div className="flex items-center justify-center">
+          <button
+            type="submit"
+            disabled={submitting}
+            className="bg-blue-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline disabled:bg-blue-300"
+          >
+            Submit
+          </button>
+        </div>
+      )}
     </form>
   );
 };
